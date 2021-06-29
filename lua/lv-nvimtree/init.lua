@@ -44,7 +44,7 @@ M.config = function()
         git = 1,
         folders = 1,
         files = 1,
-        folder_arrows = 0
+        folder_arrows = 1
     }
 
     vim.g.nvim_tree_icons = {
@@ -106,6 +106,19 @@ M.config = function()
         ["-"] = tree_cb("dir_up"),
         ["q"] = tree_cb("close")
     }
+end
+
+local view = require 'nvim-tree.view'
+
+M.toggle_tree = function()
+    if view.win_open() then
+        require'nvim-tree'.close()
+        require'bufferline.state'.set_offset(0)
+    else
+        require'bufferline.state'.set_offset(31, 'File Explorer')
+        require'nvim-tree'.find_file(true)
+    end
+
 end
 
 return M
